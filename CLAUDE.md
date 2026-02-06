@@ -1,25 +1,25 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+이 파일은 Claude Code (claude.ai/code)가 이 저장소의 코드로 작업할 때 제공되는 가이드입니다.
 
-## Project Overview
+## 프로젝트 개요
 
-This is a production-ready React 19 starter kit built with modern web technologies. It provides a complete foundation for building scalable web applications with documentation, examples, and best practices.
+모던 웹 기술로 구축된 프로덕션 준비 완료 React 19 스타터 킷입니다. 문서화, 예제, 모범 사례를 포함한 확장 가능한 웹 애플리케이션 구축을 위한 완벽한 기반을 제공합니다.
 
-**Tech Stack**: React 19 + TypeScript + Vite 7 + TailwindCSS v4 + TanStack Router + shadcn/ui + Radix UI
+**기술 스택**: React 19 + TypeScript + Vite 7 + TailwindCSS v4 + TanStack Router + shadcn/ui + Radix UI
 
-## Key Architecture Patterns
+## 핵심 아키텍처 패턴
 
-### 1. File-Based Routing (TanStack Router)
+### 1. 파일 기반 라우팅 (TanStack Router)
 
-Routes are defined using file-based convention in `src/routes/`:
-- Each route file is a `.tsx` file (e.g., `src/routes/index.tsx`, `src/routes/examples.tsx`)
-- Use `createFileRoute()` to define routes with type-safe paths
-- Root layout defined in `src/routes/__root.tsx`
-- Routes are automatically generated into `src/routeTree.gen.ts` (do not edit manually)
-- Router instance created in `src/main.tsx` with automatic module augmentation for type safety
+라우트는 `src/routes/` 디렉토리에서 파일 기반 규칙을 사용하여 정의됩니다:
+- 각 라우트 파일은 `.tsx` 파일입니다 (예: `src/routes/index.tsx`, `src/routes/examples.tsx`)
+- `createFileRoute()`를 사용하여 타입 안전 라우트를 정의합니다
+- 루트 레이아웃은 `src/routes/__root.tsx`에 정의됩니다
+- 라우트는 자동으로 `src/routeTree.gen.ts`로 생성됩니다 (수동 편집 금지)
+- 라우터 인스턴스는 `src/main.tsx`에서 생성되며 타입 안전성을 위한 자동 모듈 확대가 있습니다
 
-**Example route pattern**:
+**라우트 패턴 예시**:
 ```tsx
 import { createFileRoute } from '@tanstack/react-router'
 
@@ -30,163 +30,163 @@ export const Route = createFileRoute('/path')({
 })
 ```
 
-### 2. Theme System (Light/Dark Mode)
+### 2. 테마 시스템 (라이트/다크 모드)
 
-- **Context-based**: `src/contexts/theme-context.ts` provides theme state management
-- **Provider**: `src/components/theme-provider.tsx` handles theme initialization and persistence
-- **Storage**: Theme preference saved to localStorage
-- **System detection**: Supports 'light' | 'dark' | 'system' modes with media query fallback
-- **CSS classes**: Root element gets 'light' or 'dark' class for CSS targeting
-- **Hook**: Use `useTheme()` from `src/hooks/use-theme.ts` to access theme state
+- **컨텍스트 기반**: `src/contexts/theme-context.ts`는 테마 상태 관리를 제공합니다
+- **프로바이더**: `src/components/theme-provider.tsx`는 테마 초기화 및 지속성을 처리합니다
+- **저장소**: 테마 설정은 localStorage에 저장됩니다
+- **시스템 감지**: 미디어 쿼리 폴백을 포함한 'light' | 'dark' | 'system' 모드를 지원합니다
+- **CSS 클래스**: 루트 요소에는 CSS 타겟팅을 위한 'light' 또는 'dark' 클래스가 적용됩니다
+- **훅**: `src/hooks/use-theme.ts`의 `useTheme()`을 사용하여 테마 상태에 접근합니다
 
-### 3. UI Component Library (shadcn/ui)
+### 3. UI 컴포넌트 라이브러리 (shadcn/ui)
 
-- Components located in `src/components/ui/`
-- Built on Radix UI primitives with Tailwind styling
-- All components use slot-based composition pattern (data-slot attributes)
-- Design system utilities in `src/lib/utils.ts` (cn() function for class merging)
-- Component variants defined using CVA (class-variance-authority)
+- 컴포넌트는 `src/components/ui/`에 위치합니다
+- Radix UI 프리미티브 기반이며 Tailwind 스타일링으로 구성됩니다
+- 모든 컴포넌트는 슬롯 기반 조합 패턴을 사용합니다 (data-slot 속성)
+- `src/lib/utils.ts`의 디자인 시스템 유틸리티 (cn() 함수로 클래스 병합)
+- CVA (class-variance-authority)를 사용하여 컴포넌트 변형을 정의합니다
 
-### 4. Code Highlighting & Documentation
+### 4. 코드 강조 및 문서화
 
-- **Shiki**: Code highlighting powered by Shiki (same as VS Code)
-- **Singleton pattern**: Highlighter instance cached in `src/lib/shiki-config.ts`
-- **Components**:
-  - `CodeBlock`: Renders syntax-highlighted code with copy button
-  - `ComponentDemo`: Dual-view component (design view + code view using tabs)
-- **Code examples**: Stored in `src/lib/code-examples.tsx` as JSX
-- **Documentation**: Comprehensive guides in `/docs` route
+- **Shiki**: VS Code와 동일한 수준의 코드 강조
+- **싱글톤 패턴**: `src/lib/shiki-config.ts`에서 highlighter 인스턴스를 캐시합니다
+- **컴포넌트**:
+  - `CodeBlock`: 구문 강조된 코드와 복사 버튼을 렌더링합니다
+  - `ComponentDemo`: 탭을 사용한 이중 뷰 컴포넌트 (디자인 뷰 + 코드 뷰)
+- **코드 예제**: `src/lib/code-examples.tsx`에 JSX로 저장됩니다
+- **문서화**: `/docs` 라우트에서 포괄적인 가이드를 제공합니다
 
-## Common Development Commands
+## 일반적인 개발 명령어
 
 ```bash
-# Development server (runs on http://localhost:5175 or next available port)
+# 개발 서버 (http://localhost:5175 또는 다음 사용 가능한 포트에서 실행)
 npm run dev
 
-# Build for production (TypeScript check + Vite build)
+# 프로덕션을 위한 빌드 (TypeScript 검사 + Vite 빌드)
 npm run build
 
-# Linting
+# 린팅
 npm run lint
 
-# Preview production build locally
+# 프로덕션 빌드를 로컬에서 미리보기
 npm run preview
 ```
 
-## TypeScript Configuration
+## TypeScript 설정
 
-- **Path aliases**: `@/*` resolves to `src/*` (configured in tsconfig.json and vite.config.ts)
-- **Type-only imports**: Required by `verbatimModuleSyntax` compiler option
-  - Use: `import type { ReactNode } from 'react'`
-  - Not: `import { ReactNode } from 'react'`
-- **JSX**: Only works in `.tsx` files, not `.ts`
-- **Target**: ES2020 with React 19 JSX transform (automatic JSX)
+- **경로 별칭**: `@/*`은 `src/*`로 해석됩니다 (tsconfig.json 및 vite.config.ts에서 설정)
+- **타입 전용 임포트**: `verbatimModuleSyntax` 컴파일러 옵션에 의해 필수입니다
+  - 사용: `import type { ReactNode } from 'react'`
+  - 사용 금지: `import { ReactNode } from 'react'`
+- **JSX**: `.tsx` 파일에서만 작동하며, `.ts` 파일에서는 작동하지 않습니다
+- **타겟**: React 19 JSX 변환 (자동 JSX)을 포함한 ES2020
 
-## Code Organization
+## 코드 조직
 
 ```
 src/
 ├── components/
-│   ├── ui/               # shadcn/ui components
-│   ├── layout/           # Header, Footer, layout wrappers
-│   ├── code-block.tsx    # Shiki-powered code display
-│   ├── component-demo.tsx # Demo container with tabs
-│   ├── quick-start-dialog.tsx # Installation options dialog
+│   ├── ui/               # shadcn/ui 컴포넌트
+│   ├── layout/           # Header, Footer, 레이아웃 래퍼
+│   ├── code-block.tsx    # Shiki 기반 코드 표시
+│   ├── component-demo.tsx # 탭이 있는 데모 컨테이너
+│   ├── quick-start-dialog.tsx # 설치 옵션 다이얼로그
 │   ├── theme-toggle.tsx
 │   ├── theme-provider.tsx
 │   └── ...
-├── routes/               # File-based routes (TanStack Router)
-│   ├── __root.tsx       # Root layout
-│   ├── index.tsx        # Home page
-│   ├── examples.tsx     # Component examples showcase
-│   ├── docs.tsx         # Documentation pages
+├── routes/               # 파일 기반 라우트 (TanStack Router)
+│   ├── __root.tsx       # 루트 레이아웃
+│   ├── index.tsx        # 홈페이지
+│   ├── examples.tsx     # 컴포넌트 예제 쇼케이스
+│   ├── docs.tsx         # 문서 페이지
 │   └── ...
 ├── lib/
-│   ├── utils.ts         # cn() utility for class merging
-│   ├── shiki-config.ts  # Code highlighter setup
-│   ├── code-examples.tsx # Component example data
-│   ├── tech-stack.ts    # Technology information
+│   ├── utils.ts         # 클래스 병합을 위한 cn() 유틸리티
+│   ├── shiki-config.ts  # 코드 highlighter 설정
+│   ├── code-examples.tsx # 컴포넌트 예제 데이터
+│   ├── tech-stack.ts    # 기술 정보
 │   └── ...
-├── hooks/               # Custom React hooks
-│   └── use-theme.ts     # Theme context hook
-├── contexts/            # React Context definitions
+├── hooks/               # 커스텀 React 훅
+│   └── use-theme.ts     # 테마 컨텍스트 훅
+├── contexts/            # React Context 정의
 │   └── theme-context.ts
-├── main.tsx             # App entry point
-├── routeTree.gen.ts     # Auto-generated routes (do not edit)
-└── index.css            # Global styles
+├── main.tsx             # 앱 엔트리 포인트
+├── routeTree.gen.ts     # 자동 생성된 라우트 (수동 편집 금지)
+└── index.css            # 전역 스타일
 
 ```
 
-## Styling Guidelines
+## 스타일링 가이드라인
 
-- **Tailwind CSS v4**: Utility-first CSS framework
-- **CSS Variables**: Used for theme colors and design tokens
-- **Dark Mode**: Use `dark:` prefix for dark mode styles
-- **Class merging**: Use `cn()` from `src/lib/utils.ts` to safely merge Tailwind classes
-- **Component styling**: shadcn/ui components already include responsive and dark mode support
+- **Tailwind CSS v4**: Utility-first CSS 프레임워크
+- **CSS 변수**: 테마 색상 및 디자인 토큰에 사용됩니다
+- **다크 모드**: 다크 모드 스타일에는 `dark:` 프리픽스를 사용합니다
+- **클래스 병합**: `src/lib/utils.ts`의 `cn()`을 사용하여 안전하게 Tailwind 클래스를 병합합니다
+- **컴포넌트 스타일링**: shadcn/ui 컴포넌트는 이미 반응형 및 다크 모드 지원을 포함합니다
 
-**Example**:
+**예시**:
 ```tsx
 <div className="bg-white dark:bg-gray-950 text-black dark:text-white">
-  Responsive dark mode content
+  반응형 다크 모드 콘텐츠
 </div>
 ```
 
-## Key Features & Pages
+## 주요 기능 및 페이지
 
-- **Home Page** (`/`): Hero section with feature cards, button demos
-- **Examples** (`/examples`): Showcases UI components with preview and code view
-- **Documentation** (`/docs`): Technology stack, guides (setup, routing, styling, components)
-- **Code Highlighting**: Syntax-highlighted code blocks with copy functionality
-- **Quick Start**: Multiple installation options (StackBlitz, Tiged, Git)
+- **홈페이지** (`/`): 히어로 섹션, 기능 카드, 버튼 데모
+- **예제** (`/examples`): UI 컴포넌트 미리보기 및 코드 뷰 쇼케이스
+- **문서화** (`/docs`): 기술 스택, 설정, 라우팅, 스타일링, 컴포넌트 가이드
+- **코드 강조**: 복사 기능이 있는 구문 강조 코드 블록
+- **빠른 시작**: 3가지 설치 옵션 (StackBlitz, Tiged, Git)
 
-## Important Notes
+## 중요한 참고사항
 
-### Shiki Code Highlighting
+### Shiki 코드 강조
 
-- Async initialization: Always await `getHighlighter()` before use
-- Languages loaded: TypeScript, TSX, JavaScript, JSX, Bash, JSON
-- Themes: GitHub light/dark with CSS variable customization
-- Used via `dangerouslySetInnerHTML` with trusted Shiki output
+- 비동기 초기화: 사용 전에 항상 `getHighlighter()`를 기다립니다
+- 로드된 언어: TypeScript, TSX, JavaScript, JSX, Bash, JSON
+- 테마: GitHub light/dark, CSS 변수로 커스터마이징 가능
+- `dangerouslySetInnerHTML`을 통해 신뢰할 수 있는 Shiki 출력으로 사용됩니다
 
-### Form Components
+### 폼 컴포넌트
 
-- Input components in `src/components/ui/input.tsx`
-- Label components in `src/components/ui/label.tsx`
-- Dialog/Modal in `src/components/ui/dialog.tsx`
-- All support standard HTML patterns and attributes
+- Input 컴포넌트는 `src/components/ui/input.tsx`에 있습니다
+- Label 컴포넌트는 `src/components/ui/label.tsx`에 있습니다
+- Dialog/Modal은 `src/components/ui/dialog.tsx`에 있습니다
+- 모두 표준 HTML 패턴 및 속성을 지원합니다
 
-### Git Workflow
+### Git 워크플로우
 
-- Feature commits with Korean messages (per global CLAUDE.md)
-- Code comments in Korean
-- Variable/function names in English
-- Typical commit format: `feat:` or `fix:` prefix with description
+- 한국어 메시지로 기능 커밋 (전역 CLAUDE.md 참조)
+- 한국어로 코드 주석 작성
+- 영어로 변수/함수명 작성
+- 일반적인 커밋 형식: `feat:` 또는 `fix:` 프리픽스와 설명
 
-## Performance Optimization
+## 성능 최적화
 
-- Shiki highlighter is cached as singleton to prevent re-initialization
-- Code examples are static JSX, not runtime-generated
-- Vite provides fast HMR and optimized production bundles
-- TailwindCSS v4 performs JIT compilation for minimal CSS output
+- Shiki highlighter는 재초기화를 방지하기 위해 싱글톤으로 캐시됩니다
+- 코드 예제는 정적 JSX이며 런타임 생성이 아닙니다
+- Vite는 빠른 HMR 및 최적화된 프로덕션 번들을 제공합니다
+- TailwindCSS v4는 최소 CSS 출력을 위해 JIT 컴파일을 수행합니다
 
-## Common Patterns
+## 일반적인 패턴
 
-### Creating New Routes
+### 새로운 라우트 생성
 
-1. Create `src/routes/[name].tsx`
-2. Import `createFileRoute` from `@tanstack/react-router`
-3. Define component and export Route
-4. Route tree auto-generates on file save
+1. `src/routes/[name].tsx` 생성
+2. `@tanstack/react-router`에서 `createFileRoute` 임포트
+3. 컴포넌트를 정의하고 Route를 내보냅니다
+4. 파일 저장 시 라우트 트리가 자동 생성됩니다
 
-### Adding UI Components
+### UI 컴포넌트 추가
 
-1. Check `src/components/ui/` for existing components
-2. Use shadcn/ui to add new components: `npx shadcn@latest add [component-name]`
-3. Customize via component props and Tailwind classes
-4. All components support dark mode via `dark:` prefix
+1. `src/components/ui/`에서 기존 컴포넌트 확인
+2. shadcn/ui를 사용하여 새 컴포넌트 추가: `npx shadcn@latest add [component-name]`
+3. 컴포넌트 props 및 Tailwind 클래스를 통해 커스터마이징합니다
+4. 모든 컴포넌트는 `dark:` 프리픽스를 통해 다크 모드를 지원합니다
 
-### Using Theme Context
+### 테마 컨텍스트 사용
 
 ```tsx
 import { useTheme } from '@/hooks/use-theme'
@@ -194,24 +194,49 @@ import { useTheme } from '@/hooks/use-theme'
 function MyComponent() {
   const { theme, setTheme, resolvedTheme } = useTheme()
   // theme: 'light' | 'dark' | 'system'
-  // resolvedTheme: 'light' | 'dark' (always resolved)
+  // resolvedTheme: 'light' | 'dark' (항상 해석됨)
 }
 ```
 
-## Build & Deployment
+## 빌드 및 배포
 
-- **Build command**: `npm run build` (runs TypeScript check then Vite build)
-- **Output**: `dist/` directory
-- **Preview**: `npm run preview` to test production build locally
-- **Deployment**: Standard static hosting (Vercel, Netlify, etc.)
+- **빌드 명령어**: `npm run build` (TypeScript 검사 후 Vite 빌드 실행)
+- **출력**: `dist/` 디렉토리
+- **미리보기**: `npm run preview`로 프로덕션 빌드 로컬 테스트
+- **배포**: 표준 정적 호스팅 (Vercel, Netlify 등)
 
-## Dependencies to Know
+## 알아야 할 의존성
 
-- **@tanstack/react-router**: File-based routing with full TypeScript support
-- **shiki**: VS Code-grade syntax highlighting
-- **@radix-ui**: Headless, accessible component primitives
-- **TailwindCSS**: Utility-first CSS framework
-- **lucide-react**: 5000+ consistent SVG icons
+- **@tanstack/react-router**: 완전한 TypeScript 지원이 있는 파일 기반 라우팅
+- **shiki**: VS Code 수준의 구문 강조
+- **@radix-ui**: 접근성 우선, 헤드리스 컴포넌트 프리미티브
+- **TailwindCSS**: Utility-first CSS 프레임워크
+- **lucide-react**: 5000개 이상의 일관된 SVG 아이콘
+
+## 문서화 및 예제 시스템
+
+이 프로젝트는 내장 문서화 시스템을 포함합니다:
+
+- **예제 라우트** (`/examples`): 인터랙티브 컴포넌트 쇼케이스
+  - 미리보기 + 코드 탭이 있는 `ComponentDemo` 래퍼 사용
+  - 예제는 `src/lib/code-examples.tsx`에 정의됩니다
+  - 각 예제는 작동하는 컴포넌트와 복사 가능한 코드를 표시합니다
+
+- **문서 라우트** (`/docs`): 기술 가이드
+  - 기술 스택 카드 (`src/lib/tech-stack.ts`)
+  - 설정, 라우팅, 스타일링, 컴포넌트에 대한 단계별 가이드
+  - 구문 강조 및 복사 기능이 있는 CodeBlock 컴포넌트
+
+- **홈페이지 기능**:
+  - 3가지 설치 옵션이 있는 빠른 시작 다이얼로그
+  - 예제 및 문서로의 링크
+  - 기능 쇼케이스 섹션
+
+### 새로운 예제 추가
+
+1. `src/lib/code-examples.tsx`에서 컴포넌트 생성
+2. `component`, `code`, `title`, `description`이 있는 예제 객체 정의
+3. `/examples` 라우트에 자동으로 표시됩니다 (그리드 레이아웃이 렌더링을 처리합니다)
 
 ## 언어 및 커뮤니케이션 규칙
 
@@ -220,4 +245,3 @@ function MyComponent() {
 - **커밋 메시지**: 한국어로 작성
 - **문서화**: 한국어로 작성 (IMPORTANT)
 - **변수명/함수명**: 영어 (코드 표준 준수)
-
