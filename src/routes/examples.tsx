@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ComponentDemo } from '@/components/component-demo'
-import { codeExamples } from '@/lib/code-examples.tsx'
+import { codeExamples } from '@/lib/code-examples'
 
 function ExamplesPage() {
   return (
