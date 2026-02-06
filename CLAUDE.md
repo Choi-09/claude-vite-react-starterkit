@@ -213,27 +213,11 @@ function MyComponent() {
 - **TailwindCSS**: Utility-first CSS framework
 - **lucide-react**: 5000+ consistent SVG icons
 
-## Documentation & Examples System
+## 언어 및 커뮤니케이션 규칙
 
-This project includes a built-in documentation system:
+- **기본 응답 언어**: 한국어
+- **코드 주석**: 한국어로 작성
+- **커밋 메시지**: 한국어로 작성
+- **문서화**: 한국어로 작성 (IMPORTANT)
+- **변수명/함수명**: 영어 (코드 표준 준수)
 
-- **Examples Route** (`/examples`): Interactive component showcase
-  - Uses `ComponentDemo` wrapper with preview + code tabs
-  - Examples defined in `src/lib/code-examples.tsx`
-  - Each example shows working component and copyable code
-
-- **Documentation Route** (`/docs`): Technology guides
-  - Technology stack cards (`src/lib/tech-stack.ts`)
-  - Step-by-step guides for setup, routing, styling, components
-  - CodeBlock components with syntax highlighting and copy functionality
-
-- **Home Page Features**:
-  - Quick start dialog with 3 installation options
-  - Links to examples and documentation
-  - Feature showcase section
-
-### Adding New Examples
-
-1. Create component in `src/lib/code-examples.tsx`
-2. Define example object with `component`, `code`, `title`, `description`
-3. Automatically appears in `/examples` route (grid layout handles rendering)

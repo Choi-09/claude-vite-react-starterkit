@@ -5,7 +5,7 @@ import type { Theme } from '@/contexts/theme-context'
 
 export { ThemeContext }
 
-// Re-export theme type for convenience
+// 편의상 테마 타입 재내보내기
 export type { Theme }
 
 const getInitialTheme = (): Theme => {
