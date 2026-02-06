@@ -10,8 +10,14 @@ export type { Theme }
 
 const getInitialTheme = (): Theme => {
   if (typeof window === 'undefined') return 'system'
-  const stored = localStorage.getItem('theme') as Theme | null
-  return stored || 'system'
+  try {
+    const stored = localStorage.getItem('theme') as Theme | null
+    return stored || 'system'
+  } catch (error) {
+    // Safari private mode 등에서 localStorage 접근 실패 처리
+    console.warn('[ThemeProvider] Failed to access localStorage:', error)
+    return 'system'
+  }
 }
 
 const getResolvedTheme = (t: Theme): 'light' | 'dark' => {
@@ -52,7 +58,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme)
-    localStorage.setItem('theme', newTheme)
+    try {
+      localStorage.setItem('theme', newTheme)
+    } catch (error) {
+      // Safari private mode 등에서 localStorage 쓰기 실패 처리
+      console.warn('[ThemeProvider] Failed to save theme preference:', error)
+    }
   }
 
   return (
