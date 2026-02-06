@@ -1,9 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { useState } from 'react'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { QuickStartDialog } from '@/components/quick-start-dialog'
 import { Zap, Code2, Palette, Smartphone } from 'lucide-react'
 
 function HomePage() {
+  const [quickStartOpen, setQuickStartOpen] = useState(false)
+  const navigate = useNavigate()
   return (
     <div>
       {/* 히어로 섹션 */}
@@ -18,8 +22,14 @@ function HomePage() {
             프로덕션 레디 스타터킷
           </p>
           <div className="mt-8 flex justify-center gap-4">
-            <Button size="lg">시작하기</Button>
-            <Button variant="outline" size="lg">
+            <Button size="lg" onClick={() => setQuickStartOpen(true)}>
+              시작하기
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => navigate({ to: '/docs' })}
+            >
               문서 보기
             </Button>
           </div>
@@ -138,6 +148,11 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      <QuickStartDialog
+        open={quickStartOpen}
+        onOpenChange={setQuickStartOpen}
+      />
     </div>
   )
 }

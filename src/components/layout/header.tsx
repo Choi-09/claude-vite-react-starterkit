@@ -37,6 +37,17 @@ export function Header() {
             소개
           </Link>
           <Link
+            to="/examples"
+            activeProps={{
+              className: 'text-blue-600 dark:text-blue-400 font-semibold',
+            }}
+            inactiveProps={{
+              className: 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white',
+            }}
+          >
+            예제
+          </Link>
+          <Link
             to="/dashboard"
             activeProps={{
               className: 'text-blue-600 dark:text-blue-400 font-semibold',
