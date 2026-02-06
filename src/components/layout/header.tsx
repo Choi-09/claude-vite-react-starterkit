@@ -1,8 +1,12 @@
+import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { QuickStartDialog } from '@/components/quick-start-dialog'
 import { Button } from '@/components/ui/button'
 
 export function Header() {
+  const [quickStartOpen, setQuickStartOpen] = useState(false)
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur dark:border-gray-800 dark:bg-gray-950/95">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
@@ -63,10 +67,18 @@ export function Header() {
         {/* 테마 토글 및 액션 버튼 */}
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Button variant="default" size="sm" className="hidden sm:inline-flex">
+          <Button
+            variant="default"
+            size="sm"
+            className="hidden sm:inline-flex"
+            onClick={() => setQuickStartOpen(true)}
+          >
             시작하기
           </Button>
         </div>
+
+        {/* 빠른 시작 다이얼로그 */}
+        <QuickStartDialog open={quickStartOpen} onOpenChange={setQuickStartOpen} />
       </div>
     </header>
   )
