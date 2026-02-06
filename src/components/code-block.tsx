@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { getHighlighter } from '@/lib/shiki-config'
 import { useTheme } from '@/hooks/use-theme'
 import { Badge } from '@/components/ui/badge'
-import { Check, Copy } from 'lucide-react'
+import { Check, Copy, AlertCircle } from 'lucide-react'
 
 interface CodeBlockProps {
   code: string
@@ -15,23 +15,24 @@ export function CodeBlock({
   language,
   filename,
 }: CodeBlockProps) {
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
   const [html, setHtml] = useState<string>('')
   const [copied, setCopied] = useState(false)
+  const [copyError, setCopyError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const highlight = async () => {
       try {
         const highlighter = await getHighlighter()
-        const shikiTheme = theme === 'dark' ? 'github-dark' : 'github-light'
+        const shikiTheme = resolvedTheme === 'dark' ? 'github-dark' : 'github-light'
         const highlighted = await highlighter.codeToHtml(code, {
           lang: language,
           theme: shikiTheme,
         })
         setHtml(highlighted)
       } catch (error) {
-        console.error('코드 강조 실패:', error)
+        console.error('[CodeBlock] Failed to highlight code:', error)
         setHtml(`<pre><code>${code}</code></pre>`)
       } finally {
         setIsLoading(false)
@@ -39,15 +40,18 @@ export function CodeBlock({
     }
 
     highlight()
-  }, [code, language, theme])
+  }, [code, language, resolvedTheme])
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(code)
       setCopied(true)
+      setCopyError(false)
       setTimeout(() => setCopied(false), 2000)
     } catch (error) {
-      console.error('복사 실패:', error)
+      console.error('[CodeBlock] Failed to copy to clipboard:', error)
+      setCopyError(true)
+      setTimeout(() => setCopyError(false), 3000)
     }
   }
 
@@ -68,10 +72,12 @@ export function CodeBlock({
         <button
           onClick={handleCopy}
           className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-          title={copied ? '복사됨!' : '복사'}
+          title={copied ? '복사됨!' : copyError ? '복사 실패' : '복사'}
         >
           {copied ? (
             <Check className="h-4 w-4 text-green-600" />
+          ) : copyError ? (
+            <AlertCircle className="h-4 w-4 text-red-600" />
           ) : (
             <Copy className="h-4 w-4 text-gray-600 dark:text-gray-400" />
           )}
