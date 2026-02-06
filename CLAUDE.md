@@ -213,3 +213,27 @@ function MyComponent() {
 - **TailwindCSS**: Utility-first CSS framework
 - **lucide-react**: 5000+ consistent SVG icons
 
+## Documentation & Examples System
+
+This project includes a built-in documentation system:
+
+- **Examples Route** (`/examples`): Interactive component showcase
+  - Uses `ComponentDemo` wrapper with preview + code tabs
+  - Examples defined in `src/lib/code-examples.tsx`
+  - Each example shows working component and copyable code
+
+- **Documentation Route** (`/docs`): Technology guides
+  - Technology stack cards (`src/lib/tech-stack.ts`)
+  - Step-by-step guides for setup, routing, styling, components
+  - CodeBlock components with syntax highlighting and copy functionality
+
+- **Home Page Features**:
+  - Quick start dialog with 3 installation options
+  - Links to examples and documentation
+  - Feature showcase section
+
+### Adding New Examples
+
+1. Create component in `src/lib/code-examples.tsx`
+2. Define example object with `component`, `code`, `title`, `description`
+3. Automatically appears in `/examples` route (grid layout handles rendering)
