@@ -62,6 +62,17 @@ export function Header() {
           >
             대시보드
           </Link>
+          <Link
+            to="/login"
+            activeProps={{
+              className: 'text-blue-600 dark:text-blue-400 font-semibold',
+            }}
+            inactiveProps={{
+              className: 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white',
+            }}
+          >
+            로그인
+          </Link>
         </nav>
 
         {/* 테마 토글 및 액션 버튼 */}
